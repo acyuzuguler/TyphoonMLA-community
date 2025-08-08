@@ -28,4 +28,11 @@ bash run.sh
 
 ## To rebuilt image from scratch
 
+```
 docker build -f dockerfiles/Dockerfile -t tree-mla:latest .
+```
+
+
+## Results from community contributors
+
+Add your results below here and create a PR.
