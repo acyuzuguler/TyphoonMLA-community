@@ -6,9 +6,9 @@ import math
 
 from src.tree_mla import TreeMLA
 
-from helpers import convert_absorb_to_naive, merge_kv_cache
+from src.helpers import convert_absorb_to_naive, merge_kv_cache
 
-class MLAMergedFlashInferTest:
+class TreeMLATest:
     def __init__(self, bsz, seqlens, n_heads, qk_nope_head_dim, qk_rope_head_dim, kv_lora_rank, v_head_dim, is_stage1_absorb, run_in_single_stage, softmax_scale, data_layout, device, dtype) -> None:
         self.bsz = bsz 
         self.seqlens = seqlens
@@ -134,7 +134,7 @@ def func_test():
     is_stage1_absorb = False
     run_in_single_stage = True 
 
-    mla_flashinfer_test = MLAMergedFlashInferTest(bsz, seqlens, n_heads, qk_nope_head_dim, qk_rope_head_dim, kv_lora_rank, v_head_dim, is_stage1_absorb, run_in_single_stage, softmax_scale, data_layout="NHD", device=device, dtype=dtype)
+    mla_flashinfer_test = TreeMLATest(bsz, seqlens, n_heads, qk_nope_head_dim, qk_rope_head_dim, kv_lora_rank, v_head_dim, is_stage1_absorb, run_in_single_stage, softmax_scale, data_layout="NHD", device=device, dtype=dtype)
     q, kv_cache_stage1, pe_cache_stage1, kv_cache_stage2, pe_cache_stage2, k_cache_stage1, v_cache_stage1, wkv_b1, wkv_b2 = mla_flashinfer_test.generate_input_data()
     out = mla_flashinfer_test.run(q, kv_cache_stage1, pe_cache_stage1, kv_cache_stage2, pe_cache_stage2, k_cache_stage1, v_cache_stage1, wkv_b1, wkv_b2)
 
@@ -175,7 +175,7 @@ def benchmark():
         is_stage1_absorb = bsz < threshold 
         run_in_single_stage = bsz < threshold 
 
-        mla_flashinfer_test = MLAMergedFlashInferTest(bsz, seqlens, n_heads, qk_nope_head_dim, qk_rope_head_dim, kv_lora_rank, v_head_dim, is_stage1_absorb, run_in_single_stage, softmax_scale, data_layout="NHD", device=device, dtype=dtype)
+        mla_flashinfer_test = TreeMLATest(bsz, seqlens, n_heads, qk_nope_head_dim, qk_rope_head_dim, kv_lora_rank, v_head_dim, is_stage1_absorb, run_in_single_stage, softmax_scale, data_layout="NHD", device=device, dtype=dtype)
         m_elapsed = mla_flashinfer_test.perf()
         elapseds.append(m_elapsed)
         print("bsz: {:<5}\telapsed: {:.2f} ms".format(bsz, m_elapsed))
