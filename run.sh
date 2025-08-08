@@ -1,5 +1,7 @@
+#!/bin/bash
 
-# activate conda env
+CONDA_DIR=$(conda info --base)
+source $CONDA_DIR/etc/profile.d/conda.sh
 conda activate mla
 
 # run all experiments. results are stored at logs/
