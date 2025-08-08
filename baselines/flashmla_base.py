@@ -4,6 +4,18 @@ import torch
 
 from flash_mla import flash_mla_with_kvcache, get_mla_metadata
 
+if torch.cuda.is_available():
+    device_index = torch.cuda.current_device()
+    device_capability = torch.cuda.get_device_capability(device_index)
+    sm_version = f"{device_capability[0]}.{device_capability[1]}"
+    print(f"SM (Compute Capability) version: {sm_version[0]}.{sm_version[1]}")
+
+    if sm_version not in ["9.0", "10.0"]:
+        print("FlashMLA supports only SM 9.0")
+        exit(-1)
+else:
+    print("CUDA is not available.")
+    exit(-1)
 
 class FlashMLATest:
     def __init__(self, bsz, seqlens, n_heads, qk_nope_head_dim, qk_rope_head_dim, kv_lora_rank, v_head_dim, with_projections, device, dtype):
