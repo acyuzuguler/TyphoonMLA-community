@@ -1,0 +1,7 @@
+{
+    "anthropic/claude-4-opus": 26472,
+    "openai/o3": 7069,
+    "grok/personas": 4759,
+    "cursor-ide-sonnet": 4641,
+    "google/gemini-cli": 4205
+}
