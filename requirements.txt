@@ -1,0 +1,4 @@
+torch==2.7.1
+flashinfer_python==0.2.9
+matplotlib
+numpy
