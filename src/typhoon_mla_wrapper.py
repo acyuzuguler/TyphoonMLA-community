@@ -30,8 +30,8 @@ class TyphoonMLATest:
 
         self.run_in_single_stage = run_in_single_stage
 
-        self.tree_mla = TyphoonMLA(is_stage1_absorb, run_in_single_stage, device, dtype)
-        self.tree_mla.plan(bsz, seqlens, n_heads, qk_nope_head_dim, qk_rope_head_dim, kv_lora_rank, v_head_dim)
+        self.typhoon_mla = TyphoonMLA(is_stage1_absorb, run_in_single_stage, device, dtype)
+        self.typhoon_mla.plan(bsz, seqlens, n_heads, qk_nope_head_dim, qk_rope_head_dim, kv_lora_rank, v_head_dim)
 
     def generate_input_data(self):
         q_nope = torch.rand(size=[self.bsz, self.n_heads, self.qk_nope_head_dim], device=self.device, dtype=self.dtype)
@@ -111,7 +111,7 @@ class TyphoonMLATest:
         return np.median(elapsed).item()
     
     def run(self, q, kv_cache_stage1, pe_cache_stage1, kv_cache_stage2, pe_cache_stage2, k_cache_stage1, v_cache_stage1, wkv_b1, wkv_b2):
-        return self.tree_mla.run(q, kv_cache_stage1, pe_cache_stage1, kv_cache_stage2, pe_cache_stage2, k_cache_stage1, v_cache_stage1, wkv_b1, wkv_b2)
+        return self.typhoon_mla.run(q, kv_cache_stage1, pe_cache_stage1, kv_cache_stage2, pe_cache_stage2, k_cache_stage1, v_cache_stage1, wkv_b1, wkv_b2)
 
 def func_test():
     dtype = torch.float16

@@ -1,5 +1,8 @@
 
-# TyphoonMLA Community Repo
+
+<img src="typhoonMLA-logo.png" alt="logo" width="200"/>
+
+## TyphoonMLA Community Repository
 
 Run TyphoonMLA on your own machine or on a server.
 
