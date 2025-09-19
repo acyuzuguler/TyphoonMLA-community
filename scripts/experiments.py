@@ -44,7 +44,7 @@ if __name__=="__main__":
     parser.add_argument("--system_prompt", type=str, default="promptA", help="System prompt")
     parser.add_argument("--model", type=str, choices=["deepseekv3", "kimik2"], default="deepseekv3", help="Model to benchmark")
     parser.add_argument("--dataset", type=str, choices=["mmlu", "gsm8k", "simpleqa"], default="mmlu", help="Dataset to benchmark on")
-    parser.add_argument("--kernel", type=str, choices=["treemla", "flashinfer", "flashmla"], default="treemla", help="Kernel to use for the benchmark")
+    parser.add_argument("--kernel", type=str, choices=["typhoonmla", "flashinfer", "flashmla"], default="typhoonmla", help="Kernel to use for the benchmark")
     args = parser.parse_args()
 
     logname = 'logs/' + "_".join([str(v) for v in [args.kernel, args.model, args.dataset, args.system_prompt, args.bsz]]) + '.out'
@@ -52,8 +52,8 @@ if __name__=="__main__":
 
     logging.info("python {}".format(" ".join(sys.argv)))
 
-    if args.kernel == "treemla":
-        from src.tree_mla_wrapper import TreeMLATest
+    if args.kernel == "typhoonmla":
+        from typhoon_mla_wrapper import TyphoonMLATest
     elif args.kernel == "flashinfer":        
         from baselines.flashinfer_base import MLAAbsorbFlashInferTest
     elif args.kernel == "flashmla":
@@ -103,11 +103,11 @@ if __name__=="__main__":
     while len(active_batch) > 0:
         seqlens_tree, seqlens_dense = form_batch(active_batch, system_prompt_len)
 
-        if args.kernel == "treemla":
+        if args.kernel == "typhoonmla":
             is_stage1_absorb = bsz < THRESHOLD 
             run_in_single_stage = bsz < THRESHOLD 
 
-            mla_flashinfer_test = TreeMLATest(bsz, seqlens_tree, n_heads, qk_nope_head_dim, qk_rope_head_dim, kv_lora_rank, v_head_dim, is_stage1_absorb, run_in_single_stage, softmax_scale, data_layout="NHD", device=device, dtype=dtype)
+            mla_flashinfer_test = TyphoonMLATest(bsz, seqlens_tree, n_heads, qk_nope_head_dim, qk_rope_head_dim, kv_lora_rank, v_head_dim, is_stage1_absorb, run_in_single_stage, softmax_scale, data_layout="NHD", device=device, dtype=dtype)
             m_elapsed = mla_flashinfer_test.perf(warm_up=1, n_repeat=1)
         elif args.kernel == "flashinfer":
             mla_flashinfer_test = MLAAbsorbFlashInferTest(bsz, seqlens_dense, n_heads, qk_nope_head_dim, qk_rope_head_dim, kv_lora_rank, v_head_dim, with_projections=True, softmax_scale=softmax_scale, data_layout="NHD", device=device, dtype=dtype)

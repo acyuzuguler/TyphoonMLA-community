@@ -1,7 +1,7 @@
 
-# Tree-MLA Community Repo
+# TyphoonMLA Community Repo
 
-Run TreeMLA on your own machine or on a server.
+Run TyphoonMLA on your own machine or on a server.
 
 Results are collected from community contributors. **Feel free to create a pull request with your results from different platforms.** We will show all benchmark results in the main page.
 

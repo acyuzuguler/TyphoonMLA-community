@@ -1,8 +1,8 @@
 
 from distutils.core import setup
 
-setup(name='tree_mla',
+setup(name='typhoon_mla',
         version='0.1',
-        description='Tree MLA community edition',
+        description='Typhoon MLA community edition',
         packages=[]
 )

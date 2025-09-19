@@ -6,7 +6,7 @@ import flashinfer
 
 from typing import List
 
-class TreeMLA:
+class TyphoonMLA:
     def __init__(self, is_stage1_absorb, run_in_single_stage, device, dtype):
         self.is_stage1_absorb = is_stage1_absorb
         self.run_in_single_stage = run_in_single_stage

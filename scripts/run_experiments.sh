@@ -12,7 +12,7 @@ for system_prompt in "${system_prompts[@]}"; do
   for model in "${models[@]}"; do
     for dataset in "${datasets[@]}"; do
       echo "Running experiments with system prompt: $system_prompt, model: $model, dataset: $dataset"
-      python scripts/experiments.py --bsz=$bsz --system_prompt $system_prompt --model $model --dataset $dataset --kernel treemla
+      python scripts/experiments.py --bsz=$bsz --system_prompt $system_prompt --model $model --dataset $dataset --kernel typhoonmla
     done
   done
 done

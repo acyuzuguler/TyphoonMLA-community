@@ -18,14 +18,14 @@ def plot_main_exp():
         return throughput
 
 
-    kernels=["flashmla", "flashinfer", "treemla"]
+    kernels=["flashmla", "flashinfer", "typhoonmla"]
     models=["deepseekv3", "kimik2"]
     datasets=["mmlu", "gsm8k", "simpleqa"]
     system_prompts=["promptA", "promptB", "promptC"]
     bsz=1024
     
-    kernel_labels = {"flashmla": "FlashMLA", "flashinfer": "FlashInfer", "treemla": "TreeMLA"}
-    colors = {"treemla": "tab:red", "flashinfer": "steelblue", "flashmla": "tab:gray"}
+    kernel_labels = {"flashmla": "FlashMLA", "flashinfer": "FlashInfer", "typhoonmla": "TyphoonMLA"}
+    colors = {"typhoonmla": "tab:red", "flashinfer": "steelblue", "flashmla": "tab:gray"}
 
     results = {}
     for kernel in kernels:
